@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header.ejs') %>
+
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+    
+    <form action='/user/login' method="post" > 
+        <h1>Login</h1>
+ <!-- <label >Name</label>
+ <input type="text" name="Name" > -->
+ <br><br>
+ <label >Email</label>
+ <input type="email" name="Email">
+ 
+ <br><br>
+ <label >Password</label>
+ <input  name="Password"  type="password">
+ <br><br>
+<button>submit</button>
+    </form>
+    <%- include('./partials/script.ejs') %>
+
+</body>
+</html>

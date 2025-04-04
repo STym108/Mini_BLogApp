@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <%- include('./partials/header.ejs') %>
+
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+    <div class="content mt-5" style="max-width: 800px; margin: auto;">
+        <h1 style="margin-left: 50px;"><%= blog.title %></h1>
+    
+        <!-- Image Styling -->
+        <img 
+            src="<%= blog.coverimage %>" 
+            alt="blogImage" 
+            style="display: block; margin: 20px 50px; max-width: 90%; height: auto; border-radius: 10px;"
+        >
+
+       <p style="margin: 20px 50px; font-size: 18px; line-height: 1.6; font-weight: bolder;">
+        created by~ <%= blog.createdby.Name %>
+        <%= blog.createdby.Name %>
+        <%= blog.createdby.ProfileImageurl %>
+    </p>
+        <!-- Body Paragraph -->
+        <p style="margin: 20px 50px; font-size: 18px; line-height: 1.6;">
+            <%= blog.body %>
+        </p>
+    </div>
+    <%- include('./partials/script.ejs') %>
+
+</body>
+</html>

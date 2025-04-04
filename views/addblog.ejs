@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+    <%- include('./partials/header.ejs') %>
+
+    <title>adding blog</title>
+</head>
+<body>
+<%- include('./partials/navbar.ejs') %>
+
+<form action="/addblog" method="post" enctype="multipart/form-data">
+    <br><br>
+    <label >cover image</label>
+    <input type="file" name="coverimage" >
+<br><br>
+<label >Title</label>
+<input type="text" name="title">
+<br><br>
+<label >Body</label>
+<input type="text" name="body" >
+<button>Submit</button>
+</form>
+
+ <%- include('./partials/script.ejs') %>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('./partials/header.ejs') %>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+<div class="cardcontainor  mt-5 row row-cols-4"> 
+    <% if (blogs.length>0) { %>
+     <% blogs.forEach(ablog => { %>
+     <div class="col">
+        <div class="card col" style="width: 18rem;">
+            <img class="card-img-top mt-10" src="<%=ablog.coverimage %>" width="20px">
+            <div class="card-body">
+              <h5 class="card-title"><%= ablog.title %></h5>
+              <a href="/addblog/<%=ablog._id %>" class="btn btn-primary">Read This Blog</a>
+            </div>
+         </div>
+     </div>
+     <% }) %>
+    <% } %>
+</div>
+ <%- include('./partials/script.ejs') %>
+</body>
+</html>

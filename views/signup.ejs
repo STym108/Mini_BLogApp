@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header.ejs') %>
+
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+<br><br>
+    <form action='/user/signup' method="post"> 
+      <h1>Signup</h1>
+ <label >Name</label>
+ <input type="text" name="Name" >
+ <br><br>
+ <label >Email</label>
+ <input type="email" name="Email" >
+ <br><br>
+ <label >Phone number</label>
+ <input type="number" name="Phone">
+ <br><br>
+ <label >Set Password</label>
+ <input type="password" name="Password" >
+<button>submit</button>
+    </form>
+    <%- include('./partials/script.ejs') %>
+
+</body>
+</html>
