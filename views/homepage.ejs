@@ -2,11 +2,58 @@
 <html lang="en">
 <head>
    <%- include('./partials/header.ejs') %>
-    <title>Document</title>
+   <title>Document</title>
+   <style>
+     body {
+        background: rgb(159, 179, 223) /* soft light blue */
+     }
+
+     .cardcontainor {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        padding: 2rem;
+     }
+
+     .card {
+        background-color: rgb(189, 221, 228);
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+     }
+
+     .card:hover {
+        transform: translateY(-5px);
+     }
+
+     .card-title {
+        font-weight: 600;
+        color: #2c3e50;
+     }
+
+     .btn-primary {
+        background-color: #4a90e2;
+        border: none;
+        border-radius: 8px;
+     }
+
+     .btn-primary:hover {
+        background-color: #357ab8;
+     }
+
+     .card-img-top {
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        max-height: 180px;
+        object-fit: cover;
+     }
+   </style>
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-<div class="cardcontainor  mt-5 row row-cols-4"> 
+<div class="cardcontainor mt-5 row row-cols-4"> 
     <% if (blogs.length>0) { %>
      <% blogs.forEach(ablog => { %>
      <div class="col">

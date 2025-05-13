@@ -2,27 +2,67 @@
 <html lang="en">
 <head>
     <%- include('./partials/header.ejs') %>
+    <title>Login</title>
+    <style>
+    body{
+      background-color: rgb(154, 203, 208);
+    }
+        .form-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: rgb(72, 166, 167);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-    <title>Document</title>
+        label {
+            font-weight: 500;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #34495e;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-    
-    <form action='/user/login' method="post" > 
-        <h1>Login</h1>
- <!-- <label >Name</label>
- <input type="text" name="Name" > -->
- <br><br>
- <label >Email</label>
- <input type="email" name="Email">
- 
- <br><br>
- <label >Password</label>
- <input  name="Password"  type="password">
- <br><br>
-<button>submit</button>
-    </form>
-    <%- include('./partials/script.ejs') %>
 
+    <div class="form-container">
+        <form action='/user/login' method="post">
+            <h1>Login</h1>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" name="Email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="Password" type="password" class="form-control" required>
+            </div>
+
+            <% if (typeof loginresult !== 'undefined' && loginresult === false) { %>
+                <div class="alert alert-danger" role="alert">
+                    Either wrong email or wrong password
+                </div>
+            <% } %>
+
+            <button class="btn btn-primary">Login</button>
+        </form>
+
+        <form action="/user/emailV" method="get">
+            <button class="btn btn-link mt-2">Forgot Password?</button>
+        </form>
+    </div>
+
+    <%- include('./partials/script.ejs') %>
 </body>
 </html>

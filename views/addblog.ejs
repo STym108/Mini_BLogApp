@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+  <%- include('./partials/header.ejs') %>
+  <title>Add Blog</title>
+  <style>
+    body {
+      background-color: #98bdf5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <%- include('./partials/header.ejs') %>
+    .blog-form-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: #c3ddee;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <title>adding blog</title>
+    .blog-form-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .blog-form-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .blog-form-container input[type="text"],
+    .blog-form-container input[type="file"],
+    .blog-form-container textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .blog-form-container textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .blog-form-container button {
+      background-color: #2b72ff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .blog-form-container button:hover {
+      background-color: #1f5ede;
+    }
+  </style>
 </head>
 <body>
-<%- include('./partials/navbar.ejs') %>
+  <%- include('./partials/navbar.ejs') %>
 
-<form action="/addblog" method="post" enctype="multipart/form-data">
-    <br><br>
-    <label >cover image</label>
-    <input type="file" name="coverimage" >
-<br><br>
-<label >Title</label>
-<input type="text" name="title">
-<br><br>
-<label >Body</label>
-<input type="text" name="body" >
-<button>Submit</button>
-</form>
+  <div class="blog-form-container">
+    <h2>Add a New Blog</h2>
+    <form action="/addblog" method="post" enctype="multipart/form-data">
+      <label>Cover Image</label>
+      <input type="file" name="coverimage">
 
- <%- include('./partials/script.ejs') %>
+      <label>Title</label>
+      <input type="text" name="title" placeholder="Enter a catchy title">
+
+      <label>Body</label>
+      <textarea name="body" placeholder="Write your blog content here..."></textarea>
+
+      <button type="submit">Submit Blog</button>
+    </form>
+  </div>
+
+  <%- include('./partials/script.ejs') %>
 </body>
 </html>

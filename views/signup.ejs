@@ -2,28 +2,89 @@
 <html lang="en">
 <head>
     <%- include('./partials/header.ejs') %>
+    <title>Signup</title>
+    <style>
+body {
+        background-color: rgb(159, 179, 223); /* light bluish-gray */
+    }
+        .form-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgb(158, 198, 243);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-    <title>Document</title>
+        label {
+            font-weight: 500;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #34495e;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-<br><br>
-    <form action='/user/signup' method="post"> 
-      <h1>Signup</h1>
- <label >Name</label>
- <input type="text" name="Name" >
- <br><br>
- <label >Email</label>
- <input type="email" name="Email" >
- <br><br>
- <label >Phone number</label>
- <input type="number" name="Phone">
- <br><br>
- <label >Set Password</label>
- <input type="password" name="Password" >
-<button>submit</button>
-    </form>
-    <%- include('./partials/script.ejs') %>
 
+    <div class="form-container">
+        <form action='/user/signup' method="post" enctype="multipart/form-data">
+            <h1>Signup</h1>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" type="text" name="Name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" name="Email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone number</label>
+                <input id="phone" type="number" name="Phone" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="profile" class="form-label">Profile Image</label>
+                <input id="profile" type="file" name="ProfileImageurl" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Set Password</label>
+                <input id="password" type="password" name="Password" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirm" class="form-label">Confirm Password</label>
+                <input id="confirm" type="password" name="Confirm_Password" class="form-control" required>
+            </div>
+
+            <% if (typeof confirmpassword !== 'undefined' && confirmpassword === false) { %>
+                <div class="alert alert-danger" role="alert">
+                    The Password must be same in both the input fields
+                </div>
+            <% } %>
+
+            <% if (typeof dupliresult !== 'undefined' && dupliresult === false) { %>
+                <div class="alert alert-danger" role="alert">
+                    This Email is Already registered 
+                </div>
+            <% } %>
+
+            <button class="btn btn-success">Signup</button>
+        </form>
+    </div>
+
+    <%- include('./partials/script.ejs') %>
 </body>
 </html>

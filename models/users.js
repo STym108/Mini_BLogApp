@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { randomBytes, createHmac } from 'crypto'; // Missing imports
-import { type } from 'os';
+
 
 const userschema=mongoose.Schema({
     Name:{
@@ -38,7 +38,6 @@ userschema.pre("save",function (next){
     const hashedpassword=createHmac("sha256",Salt)
     .update(user.Password)
     .digest("hex")
-
     this.Salt=Salt
     this.Password=hashedpassword
 

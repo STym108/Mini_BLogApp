@@ -1,34 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
+  <head>
     <%- include('./partials/header.ejs') %>
-
     <title>Document</title>
-</head>
-<body>
+    <style>
+      .blog-container {
+        max-width: 800px;
+        margin: auto;
+      }
+      .blog-header {
+        margin-left: 50px;
+      }
+      .blog-image {
+        display: block;
+        margin: 20px 50px;
+        max-width: 90%;
+        height: auto;
+        border-radius: 10px;
+      }
+      .blog-meta {
+        margin: 20px 50px;
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: bolder;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .profile-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .blog-body {
+        margin: 20px 50px;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      .comment {
+        margin: 20px 50px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .comment-content {
+        flex-grow: 1;
+      }
+      .comment-form {
+        margin: 40px 50px;
+      }
+    </style>
+  </head>
+  <body>
     <%- include('./partials/navbar.ejs') %>
-    <div class="content mt-5" style="max-width: 800px; margin: auto;">
-        <h1 style="margin-left: 50px;"><%= blog.title %></h1>
-    
-        <!-- Image Styling -->
-        <img 
-            src="<%= blog.coverimage %>" 
-            alt="blogImage" 
-            style="display: block; margin: 20px 50px; max-width: 90%; height: auto; border-radius: 10px;"
-        >
 
-       <p style="margin: 20px 50px; font-size: 18px; line-height: 1.6; font-weight: bolder;">
-        created by~ <%= blog.createdby.Name %>
-        <%= blog.createdby.Name %>
-        <%= blog.createdby.ProfileImageurl %>
-    </p>
-        <!-- Body Paragraph -->
-        <p style="margin: 20px 50px; font-size: 18px; line-height: 1.6;">
-            <%= blog.body %>
-        </p>
+    <div class="blog-container mt-5">
+      <h1 class="blog-header"><%= blog.title %></h1>
+
+      <img src="<%= blog.coverimage %>" alt="blogImage" class="blog-image" />
+
+      <div class="blog-meta">
+        Author ~ <%= blog.createdby.Name %>
+        <img
+          src="<%= blog.createdby.ProfileImageurl %>"
+          alt="Profile Image"
+          class="profile-image"
+        />
+      </div>
+
+      <p class="blog-body"><%= blog.body %></p>
+
+      <% if (comments.length > 0) { %>
+        <% comments.forEach(acomment => { %>
+          <% if (acomment.blogId.toString() === blog._id.toString()) { %>
+            <div class="comment">
+              <img
+                src="<%= acomment.createdby.ProfileImageurl %>"
+                alt="Profile Image"
+                class="profile-image"
+              />
+              <div class="comment-content">
+                <h4 style="margin: 0;"><%= acomment.createdby.Name %></h4>
+                <p style="margin: 5px 0 0 0;"><%= acomment.content %></p>
+              </div>
+            </div>
+          <% } %>
+        <% }) %>
+      <% } %>
+
+      <div class="comment-form">
+        <form action="/addblog/<%= blog._id %>/comment" method="post">
+          <label>Comment </label><br />
+          <input type="text" name="content" required style="width: 70%; padding: 5px;" />
+          <button style="padding: 5px 10px;">Post</button>
+        </form>
+      </div>
     </div>
-    <%- include('./partials/script.ejs') %>
 
-</body>
+    <%- include('./partials/script.ejs') %>
+  </body>
 </html>

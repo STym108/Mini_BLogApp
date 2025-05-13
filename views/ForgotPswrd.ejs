@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/header.ejs') %>
+    <style>
+      body {
+        background-color: #f4f7fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .form-container {
+        max-width: 400px;
+        background: white;
+        padding: 30px;
+        margin: 50px auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        text-align: center;
+      }
+
+      .form-container input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .form-container button {
+        padding: 10px 20px;
+        background-color: #2b72ff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .form-container button:hover {
+        background-color: #1a5ee0;
+      }
+
+      .alert {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px 15px;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        margin-top: 15px;
+      }
+
+      .verified {
+        text-align: center;
+        margin-top: 20px;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="form-container">
+      <form action="/user/emailV" method="post">
+        <label>Confirm Your Email</label>
+        <input type="text" name="Email" />
+        <button>Send verification code in an Email</button>
+      </form>
+
+      <% if (typeof EmailExists !== 'undefined' &&  EmailExists === false ) { %>
+        <div class="alert">This Email is not Registered</div>
+      <% } %>
+    </div>
+
+    <% if (EmailExists === true) { %>
+      <div class="form-container">
+        <form action="/user/verification" method="post">
+          <h3>Verification code Sent On your Email ......</h3>
+          <label>Email :</label> <input type="text" name="Email" />
+          <label>Verification Code</label> <input type="text" name="otp" />
+          <button>Verify</button>
+        </form>
+
+        <% if (verificationresult === true && verificationresult !== 'undefined') { %>
+          <p class="verified">Email Verified Successfully...</p>
+
+          <form action="/user/passwordupdate" method="post" style="margin-top: 20px;">
+            <h3>Update Your Password</h3>
+            <label>Email</label> <input type="text" name="Email" value="<%= Email %>" />
+            <label>Enter New Password</label> <input type="password" name="newpass" />
+            <label>Confirm Password</label> <input type="password" name="confirmnewpass" />
+            <button>Update Password</button>
+          </form>
+        <% } %>
+      </div>
+    <% } %>
+
+    <%- include('./partials/script.ejs') %>
+  </body>
+</html>

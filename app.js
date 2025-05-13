@@ -6,10 +6,11 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import {router} from './Routers/user.js'
 import { blogrouter } from './Routers/blog.js';
-import { alwayscheck } from './controllers/user.js';
+
 import {alwayscheckblog} from './controllers/blogcontroller.js'
+import { alwayscheck } from './controllers/user.js';
 import {blogdata} from './models/blog.js'
-import { blogCollection } from './models/users.js';
+
 import path from 'path';
 const app=express()
 
@@ -33,6 +34,7 @@ app.use(session({
 app.use((req, res, next) => {
     res.locals.isauthenticated = req.session.isauthenticated || false; 
     res.locals.username=req.session.username||'user'
+    res.locals.profile = req.session.profile || null;  // ⬅️ Add this line
     next();
 });
 app.use('/user',router)
@@ -40,8 +42,8 @@ app.use('/addblog',alwayscheckblog,blogrouter)
 
 app.get('/',async (req,res)=>{
     const blogs=await blogdata.find({})
- 
-    res.render('homepage',{blogs})
+
+   return res.render('homepage',{blogs})
 })
 
 app.listen(process.env.port||5002,()=>{

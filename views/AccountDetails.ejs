@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/header.ejs') %>
+  <title>Update Profile</title>
+  <style>
+    body {
+      background-color: #eef3f7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .update-form-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .update-form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    .update-form-container label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    .update-form-container input[type="text"],
+    .update-form-container input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .update-form-container img {
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+    }
+
+    .update-form-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .update-form-container button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+
+  <div class="update-form-container">
+    <h2>Update Your Profile</h2>
+    <form action="/user/Account/update" method="post" enctype="multipart/form-data">
+      <label>Name</label>
+      <input type="text" name="Name" value="<%= user.Name %>">
+
+      <label>Phone Number</label>
+      <input type="text" name="Phone" value="<%= user.Phone %>">
+
+      <label>Email</label>
+      <input type="text" name="Email" value="<%= user.Email %>">
+
+      <label>Current Profile</label><br>
+      <img src="<%= user.ProfileImageurl %>" alt="No Profile" width="80" />
+
+      <label>Change Profile</label>
+      <input type="file" name="ProfileImageurl">
+
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+
+  <%- include('./partials/script.ejs') %>
+</body>
+</html>

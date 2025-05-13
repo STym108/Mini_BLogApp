@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle text-primary-emphasis">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">BloggingApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a href="/">
+            <p style="margin-right: 5px;margin-top: 9px;">Home</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/addblog">
+            <p style="margin-left: 3px;margin-top: 9px;">Add Blog</p>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right side with profile image and dropdown -->
+      <div class="d-flex align-items-center">
+        <img src="<%=  %>" alt="Profile Image"
+        style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px;" />
+       
+       
+
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <%= username %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <% if (isauthenticated) { %>
+              <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+            <% } else { %>
+              <li><a class="dropdown-item" href="/user/login">Login</a></li>
+              <li><a class="dropdown-item" href="/user/signup">Signup</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
