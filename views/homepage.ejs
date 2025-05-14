@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
    <%- include('./partials/header.ejs') %>
-   <title>Document</title>
+   <title>Mini Blog App</title>
    <style>
      body {
-        background: rgb(159, 179, 223) /* soft light blue */
+        background: linear-gradient(to right, #dbeafe, #e0f7fa); /* soft gradient */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
      }
 
      .cardcontainor {
@@ -13,34 +14,39 @@
         flex-wrap: wrap;
         gap: 2rem;
         justify-content: center;
-        padding: 2rem;
+        padding: 2rem 1rem;
      }
 
      .card {
-        background-color: rgb(189, 221, 228);
+        background-color: #e3f2fd;
         border: none;
         border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        max-width: 100%;
+        animation: fadeInUp 0.8s ease;
      }
 
      .card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
      }
 
      .card-title {
         font-weight: 600;
-        color: #2c3e50;
+        color: #1a237e;
      }
 
      .btn-primary {
-        background-color: #4a90e2;
+        background-color: #2196f3;
         border: none;
         border-radius: 8px;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
      }
 
      .btn-primary:hover {
-        background-color: #357ab8;
+        background-color: #1976d2;
      }
 
      .card-img-top {
@@ -48,26 +54,50 @@
         border-top-right-radius: 16px;
         max-height: 180px;
         object-fit: cover;
+        width: 100%;
+     }
+
+     @keyframes fadeInUp {
+        from {
+           opacity: 0;
+           transform: translateY(30px);
+        }
+        to {
+           opacity: 1;
+           transform: translateY(0);
+        }
+     }
+
+     @media (max-width: 768px) {
+        .card {
+           width: 100% !important;
+        }
      }
    </style>
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-<div class="cardcontainor mt-5 row row-cols-4"> 
-    <% if (blogs.length>0) { %>
-     <% blogs.forEach(ablog => { %>
-     <div class="col">
-        <div class="card col" style="width: 18rem;">
-            <img class="card-img-top mt-10" src="<%=ablog.coverimage %>" width="20px">
-            <div class="card-body">
-              <h5 class="card-title"><%= ablog.title %></h5>
-              <a href="/addblog/<%=ablog._id %>" class="btn btn-primary">Read This Blog</a>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <% if (blogs.length > 0) { %>
+          <% blogs.forEach(ablog => { %>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch mb-4">
+              <div class="card w-100">
+                <img class="card-img-top" src="<%= ablog.coverimage %>" alt="blog image">
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <h5 class="card-title"><%= ablog.title %></h5>
+                  <a href="/addblog/<%= ablog._id %>" class="btn btn-primary mt-3">Read This Blog</a>
+                </div>
+              </div>
             </div>
-         </div>
-     </div>
-     <% }) %>
-    <% } %>
-</div>
- <%- include('./partials/script.ejs') %>
+          <% }) %>
+        <% } else { %>
+          <p class="text-center text-muted">No blogs found.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include('./partials/script.ejs') %>
 </body>
 </html>
