@@ -97,7 +97,31 @@
         <% } %>
       </div>
     </div>
-
-    <%- include('./partials/script.ejs') %>
+<!-- below is login, signup popup html code if user is not logged in  -->
+<div id="authPopup" style="display: none; position: fixed; top: 0; left: 0;
+width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); z-index: 999;">
+<div style="background: white; width: 300px; padding: 20px; margin: 100px auto; border-radius: 8px; text-align: center;">
+  <h3>You need to login</h3>
+  <a href="/user/login">Login</a> | <a href="/user/signup">Signup</a>
+  <br><br>
+  <button onclick="document.getElementById('authPopup').style.display='none'">Close</button>
+</div>
+</div>
+<%- include('./partials/script.ejs') %>
+<script>
+   // ✅ JS code to show popup if ?authPopup=true is in the URL
+   window.onload = function () {
+     const params = new URLSearchParams(window.location.search);
+     if (params.get("authPopup") === "true") {
+       const popup = document.getElementById("authPopup");
+       if (popup) {
+         popup.style.display = "block";
+       }
+ 
+       // ✅ Clean up the URL to remove query params
+       window.history.replaceState({}, document.title, window.location.pathname);
+     }
+   }
+ </script>
 </body>
 </html>

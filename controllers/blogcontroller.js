@@ -19,7 +19,7 @@ async function alwayscheckblog(req,res,next){
 
     console.log("alwayscheckblog :token not verified");
     res.locals.isauthenticated=false;
-    res.redirect('/user/login')
+    return res.redirect('/somepage?authPopup=true');
   }
   }
   export{alwayscheckblog}
