@@ -1,25 +1,28 @@
-
 import dotenv from 'dotenv'
 dotenv.config()
 import jwt from 'jsonwebtoken'
 
-async function alwayscheckblog(req,res,next){
-  const token=req.cookies.token
-  if(!token||token==="null"||token==="undefined") return res.render('login')
-  try{
-    const payload=jwt.verify(token,process.env.JWT_SECRET)
-    req.user=payload //this req.user have all the payload details (the details filled in the jwt token while making it)
-    //this req.user will be used while creating any blog (when the blog creation form would be open firstly this middleware would be called so we will 
-    //get req.user in the post request processing of the form details )
-    console.log("inside alwayscheckblog", req.user)
-       res.locals.isauthenticated=true;
-       next()
-  }
-  catch(err){
+async function alwayscheckblog(req, res, next) {
+  const token = req.cookies.token;
 
-    console.log("alwayscheckblog :token not verified");
-    res.locals.isauthenticated=false;
-    return res.redirect('/somepage?authPopup=true');
+  // Case 1: No token
+  if (!token || token === "null" || token === "undefined") {
+    console.log("No token found. Redirecting with authPopup=true");
+    return res.redirect(req.originalUrl + (req.originalUrl.includes('?') ? '&' : '?') + 'authPopup=true');
   }
+
+  // Case 2: Token exists but invalid
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = payload;
+    res.locals.isauthenticated = true;
+    console.log("inside alwayscheckblog", req.user);
+    next();
+  } catch (err) {
+    console.log("alwayscheckblog: token not verified");
+    res.locals.isauthenticated = false;
+    return res.redirect(req.originalUrl + (req.originalUrl.includes('?') ? '&' : '?') + 'authPopup=true');
   }
-  export{alwayscheckblog}
+}
+
+export { alwayscheckblog }
